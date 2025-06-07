@@ -26,6 +26,8 @@ def main(window):
                 running = False
                 break
 
+    pygame.quit()
+    quit()            
 
 if __name__ == "__main__":
     main(window)
