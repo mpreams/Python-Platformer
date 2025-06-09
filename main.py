@@ -4,6 +4,7 @@ import math
 import pygame
 from os import listdir
 from os.path import isfile, join
+from player import Player  # Import the Player class from player.py
 
 pygame.init()
 pygame.display.set_caption("Platformer")
@@ -14,6 +15,9 @@ FPS = 60
 PLAYER_SPEED = 5
 
 window = pygame.display.set_mode((WIDTH, HEIGHT))
+
+
+           
 
 def get_backgroud(name):
     """Load the background image and create a list of tile positions."""
@@ -30,16 +34,19 @@ def get_backgroud(name):
             tiles.append(pos)
     return tiles, image    
 
-def draw(window, background, bg_image):
+def draw(window, background, bg_image, player):
     """Draw the background on the window."""
     window.fill(BG_COLOR)
     for tile in background:
         window.blit(bg_image, tile) # tile position is a tuple (x, y)
+
+    player.draw(window)  # Draw the player    
     pygame.display.update()    
 
 def main(window):
     clock = pygame.time.Clock()
     background, bg_image = get_backgroud("Blue.png")
+    player = Player(100, 100, 50, 50)  # Create a player instance
 
     running = True
     while running:
@@ -50,7 +57,7 @@ def main(window):
                 running = False
                 break
 
-        draw(window, background, bg_image)    
+        draw(window, background, bg_image, player)    
 
     pygame.quit()
     quit()            
